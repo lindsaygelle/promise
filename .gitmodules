@@ -1,3 +1,6 @@
 [submodule "promise-server"]
 	path = promise-server
 	url = https://github.com/lindsaygelle/promise-server.git
+[submodule "promise-client"]
+	path = promise-client
+	url = https://github.com/lindsaygelle/promise-client.git
