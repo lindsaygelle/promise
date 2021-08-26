@@ -1,6 +1,8 @@
 [submodule "promise-server"]
 	path = promise-server
 	url = https://github.com/lindsaygelle/promise-server.git
+	update = merge
 [submodule "promise-client"]
 	path = promise-client
 	url = https://github.com/lindsaygelle/promise-client.git
+	update = merge
