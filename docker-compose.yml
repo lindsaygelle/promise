@@ -2,6 +2,17 @@ version: "3.8"
 
 services:
 
+  node:
+    container_name: promise-client
+    build: 
+      context: ./promise-client
+      dockerfile: Dockerfile
+    user: node
+    networks: 
+      - client
+    ports:
+      - "3000:3000"
+
   postgres:
     container_name: promise-postgres
     env_file: 
@@ -63,6 +74,7 @@ services:
       - server
 
 networks:
+  client:
   server:
 
 volumes:
