@@ -7,6 +7,10 @@ services:
     build: 
       context: ./promise-client
       dockerfile: Dockerfile
+    depends_on:
+      - server
+    environment:
+      ADDR: 3000
     user: node
     networks: 
       - client
@@ -68,6 +72,8 @@ services:
         condition: service_healthy
       postgres:
         condition: service_healthy
+    environment: 
+      ADDR: 8000
     ports: 
       - "8000:8000"
     networks: 
