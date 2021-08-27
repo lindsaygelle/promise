@@ -4,7 +4,7 @@ services:
 
   node:
     container_name: promise-client
-    build: 
+    build:
       context: ./promise-client
       dockerfile: Dockerfile
     depends_on:
@@ -14,8 +14,9 @@ services:
       CHOKIDAR_USEPOLLING: "true"
       NODE_ENV: development
     user: node
-    networks: 
+    networks:
       - client
+      - server
     ports:
       - "3000:3000"
     volumes:
@@ -23,7 +24,7 @@ services:
 
   postgres:
     container_name: promise-postgres
-    env_file: 
+    env_file:
       - .env
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
@@ -36,6 +37,8 @@ services:
       test: ["CMD", "pg_isready"]
       timeout: 5s
     image: postgres:alpine
+    networks: 
+      - server
     ports:
       - "5432:5432"
     restart: always
@@ -51,8 +54,6 @@ services:
         condition: service_healthy
     env_file:
       - .env
-    environment:
-      REDIS_PASSWORD: ${REDIS_PASSWORD}
     healthcheck:
       interval: 5s
       retries: 3
@@ -68,7 +69,7 @@ services:
 
   server:
     container_name: promise-server
-    build: 
+    build:
       context: ./promise-server
       dockerfile: Dockerfile
     depends_on:
@@ -76,14 +77,19 @@ services:
         condition: service_healthy
       postgres:
         condition: service_healthy
-    environment: 
+    env_file:
+        - .env
+    environment:
       ADDR: 8000
       REDIS_HOST: redis
-      REDIS_PASSWORD: ${REDIS_PASSWORD}
       REDIS_PORT: 6379
-    ports: 
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_SSL: disable
+    ports:
       - "8000:8000"
-    networks: 
+    networks:
+      - client
       - server
 
 networks:
