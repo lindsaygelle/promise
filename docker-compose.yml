@@ -78,6 +78,9 @@ services:
         condition: service_healthy
     environment: 
       ADDR: 8000
+      REDIS_HOST: redis
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_PORT: 6379
     ports: 
       - "8000:8000"
     networks: 
