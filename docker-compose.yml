@@ -11,11 +11,15 @@ services:
       - server
     environment:
       ADDR: 3000
+      CHOKIDAR_USEPOLLING: "true"
+      NODE_ENV: development
     user: node
     networks: 
       - client
     ports:
       - "3000:3000"
+    volumes:
+      - ./promise-client/src:/app/src
 
   postgres:
     container_name: promise-postgres
