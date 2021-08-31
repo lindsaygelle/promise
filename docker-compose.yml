@@ -24,6 +24,9 @@ services:
 
   postgres:
     container_name: promise-postgres
+    build: 
+      context: ./promise-postgres
+      dockerfile: Dockerfile
     env_file:
       - .env
     environment:
@@ -36,7 +39,6 @@ services:
       start_period: 10s
       test: ["CMD", "pg_isready"]
       timeout: 5s
-    image: postgres:alpine
     networks: 
       - server
     ports:

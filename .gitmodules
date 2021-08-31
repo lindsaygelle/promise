@@ -8,3 +8,8 @@
 	path = promise-client
 	update = merge
 	url = https://github.com/lindsaygelle/promise-client.git
+[submodule "promise-postgres"]
+	branch = main
+	path = promise-postgres
+	update = merge
+	url = https://github.com/lindsaygelle/promise-postgres.git
